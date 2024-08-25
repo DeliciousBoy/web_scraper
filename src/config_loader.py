@@ -56,8 +56,4 @@ def load_config(*, config_path: Union[str, Path]) -> Tuple[ScraperSelector, Prod
         raise
 
 
-if __name__ == "__main__":
-    selector, element, web = load_config(config_path='config.yaml')
-    print(selector.all_product_class)
-    
 
