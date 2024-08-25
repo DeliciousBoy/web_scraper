@@ -1,0 +1,58 @@
+# web_url: 'https://www.scghome.com/products/subcategory/%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%B2%E0%B9%80%E0%B8%8B%E0%B8%A3%E0%B8%B2%E0%B8%A1%E0%B8%B4%E0%B8%81'
+
+# selector:
+#   all_product_class: 'ProductListing_allProducts__24sl2'
+#   product_list_class: 'ProductListing_productItemWrapper__1AXaV'
+#   product_link_path: './/a[@rel="noopener noreferrer"]' 
+
+# product_element:
+#   name: 'ProductDescription_displayName__ztjNk'
+#   id: 'ProductDescription_specText__1SueV'
+#   size: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[1]/span'
+#   weight: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[2]/span'
+#   price: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[3]/span'
+#   unit: 'ProductPricing_priceUnit__1Ki0S'
+
+
+categories:
+  roof_tile:
+    &roof_tile_default
+    name: 'ProductDescription_displayName__ztjNk'
+    id: 'ProductDescription_specText__1SueV'
+    size: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[1]/span'
+    weight: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[2]/span'
+    price: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[3]/span'
+    unit: 'ProductPricing_priceUnit__1Ki0S'
+
+  translucent:
+    <<: *roof_tile_default
+    
+  ceramic:
+    <<: *roof_tile_default
+
+  concrete:
+    <<: *roof_tile_default
+  
+  fiber_cement:
+    <<: *roof_tile_default
+  
+  ventilation:
+    <<: *roof_tile_default
+
+  metal_sheet:
+    <<: *roof_tile_default
+  
+  roofing_equipment:
+    <<: *roof_tile_default
+
+  cement_concrete_pile:
+    &cem_con_pil
+    name: 'ProductDescription_displayName__ztjNk'
+    id: 'ProductDescription_specText__1SueV'\
+    weight: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[2]/span'
+    price: '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[3]/div[1]/span[1]'
+    unit: 'ProductPricing_priceUnit__1Ki0S'
+
+
+
+  
