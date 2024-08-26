@@ -1,59 +1,78 @@
-import yaml
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Union, Tuple, Optional
 
-@dataclass()
+import yaml
+from loguru import logger
+
+@dataclass
 class ScraperSelector:
     """ Dataclass for storing Classname and XPATH selectors for scraping."""
-    all_product_class: str
-    product_list_class: str
-    product_link_path: str
+    container_class: str
+    item_class: str
+    link_path: str
 
 @dataclass
 class ProductElements:
     """ Dataclass for storing product element selectors."""
     name: str
     id: str
-    size: str
-    weight: str
     price: str
     unit: str
+    size: Optional[str] = None
+    weight: Optional[str] = None
 
-def load_config(*, config_path: Union[str, Path]) -> Tuple[ScraperSelector, ProductElements, Optional[str]]:
+@dataclass
+class CategoryConfig:
+    """ Dataclass for storing catergory specific configuration."""
+    product_elements: ProductElements
+    web_url: str
+
+def load_config(config_path: Union[str, Path], category: str) -> Tuple[ScraperSelector, CategoryConfig]:
     """
     Load the YAML configuration file and return a config object.
     """
+    logger.info(f'Loading config from {config_path} for catergory {category}')
 
     try:
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
+            logger.debug(f'YAML content: {config}')
 
         selector = ScraperSelector(
-            all_product_class=config['selector']['all_product_class'],
-            product_list_class=config['selector']['product_list_class'],
-            product_link_path=config['selector']['product_link_path'],
+            container_class=config['product_grid_selector']['container_class'],
+            item_class=config['product_grid_selector']['item_class'],
+            link_path=config['product_grid_selector']['link_path'],
         )
 
-        element = ProductElements(
-            name=config['product_element']['name'],
-            id=config['product_element']['id'],
-            size=config['product_element']['size'],
-            weight=config['product_element']['weight'],
-            price=config['product_element']['price'],
-            unit=config['product_element']['unit'],    
+        if not (category_data := config['categories'].get(category)):
+            logger.error(f'Category "{category}" not found in config.')
+            raise ValueError(f'Category "{category}" not found in config.')
+        
+        category_config = CategoryConfig(
+            product_elements=ProductElements(
+                name=category_data['name'],
+                id=category_data['id'],
+                size=category_data.get('size'),
+                weight=category_data.get('weight'),
+                price=category_data.get('price'),
+                unit=category_data.get('unit')
+            ),
+            web_url=category_data['web_url']
         )
-
-        web_url = config['web_url']
-        return selector, element, web_url
+        logger.info(f'Successfully loaded configuration for category {category}')
+        return selector, category_config
 
     except FileNotFoundError:
-        print(f'Error: the file {config_path} was not found')
+        logger.error(f'Error: the file {config_path} was not found')
         raise
 
     except yaml.YAMLError as e:
-        print(f'Error parsing YAML file: {e}')
+        logger.error(f'Error parsing YAML file: {e}')
         raise
-
+    
+    except ValueError as e:
+        logger.error(f'Error: {e}')
+        raise
 
 
