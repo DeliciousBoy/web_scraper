@@ -11,6 +11,7 @@ PRODUCT_LINK = './/a[@rel="noopener noreferrer"]'
 
 # Selected Product
 PRODUCT_IMAGE = "//*[@id='product-images-slider']/div[2]/div[2]/div/div/div[2]/div/div/div[1]/span/img"
+
 EXCEPT_PRODCUT_IMAGE = "//*[@id='product-images-slider']/div[2]/div[2]/div/div/div/div/div/div[1]/span/img"
 PRODUCT_NAME = '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/h1'
 PRODUCT_ID = '//*[@id="__next"]/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div[1]/span'

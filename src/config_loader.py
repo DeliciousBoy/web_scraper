@@ -37,7 +37,7 @@ def load_config(config_path: Union[str, Path], category: str) -> Tuple[ScraperSe
     try:
         with open(config_path, 'r') as file:
             config = yaml.safe_load(file)
-            logger.debug(f'YAML content: {config}')
+            # logger.debug(f'YAML content: {config}')
 
         selector = ScraperSelector(
             container_class=config['product_grid_selector']['container_class'],
@@ -53,12 +53,13 @@ def load_config(config_path: Union[str, Path], category: str) -> Tuple[ScraperSe
             product_elements=ProductElements(
                 name=category_data['name'],
                 id=category_data['id'],
+                price=category_data.get('price'),
+                unit=category_data.get('unit'),
                 size=category_data.get('size'),
                 weight=category_data.get('weight'),
-                price=category_data.get('price'),
-                unit=category_data.get('unit')
             ),
             web_url=category_data['web_url']
+            
         )
         logger.info(f'Successfully loaded configuration for category {category}')
         return selector, category_config
@@ -74,5 +75,4 @@ def load_config(config_path: Union[str, Path], category: str) -> Tuple[ScraperSe
     except ValueError as e:
         logger.error(f'Error: {e}')
         raise
-
 

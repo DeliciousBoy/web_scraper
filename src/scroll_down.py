@@ -1,7 +1,7 @@
 import time
 
 
-def scroll_down(driver, wait) -> None:
+def scroll_down(driver) -> None:
     """
     Scrolls down the webpage repeatedly until no more new content is loaded.
     """
